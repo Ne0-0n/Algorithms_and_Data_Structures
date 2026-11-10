@@ -22,7 +22,7 @@ public:
 			}
 		}
 	}
-
+	
 	~TStackOnMass() { delete[] _data; }
 
 	inline bool is_empty() const noexcept {
