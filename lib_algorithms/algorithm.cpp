@@ -12,6 +12,28 @@ float division(int a, int b) {
 }
 
 
-//bool check_breckets(std::string expression) {
-//  
-//}
+
+bool check_breckets(std::string expression) {
+    TStackOnMass<char> stack(static_cast<int>(expression.length()) + 1);
+
+    for (unsigned int i = 0; i < expression.length(); ++i) {
+        char c = expression[i];
+
+        if (c == '(' || c == '[' || c == '{') {
+            stack.push(c);
+        }
+        else if (c == ')' || c == ']' || c == '}') {
+            if (stack.is_empty()) {
+                return false;
+            }
+            char open = stack.pop();
+            bool match = (open == '(' && c == ')') ||
+                (open == '[' && c == ']') ||
+                (open == '{' && c == '}');
+            if (!match) {
+                return false;
+            }
+        }
+    }
+    return stack.is_empty();
+}

@@ -17,7 +17,17 @@ add_subdirectory(lib_algorithms)    # подключаем дополнител�
 
 add_subdirectory(lib_stack_on_mass)
 
+add_subdirectory(lib_queue_on_mass)
+
+add_subdirectory(lib_bitfield)
+
+add_subdirectory(lib_set)
+
+add_subdirectory(lib_sieve)
+
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
+
+add_subdirectory(sieve_app)           # приложение «Решето Эратосфена»
 
 option(BTEST "build test?" ON)        # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
 
