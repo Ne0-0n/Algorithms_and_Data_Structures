@@ -1,3 +1,5 @@
+// Copyright 2026 Kutyaev Egor
+#include <stdexcept>
 
 #ifndef LIB_QUEUE_ON_MASS_QUEUE_ON_MASS_H_
 #define LIB_QUEUE_ON_MASS_QUEUE_ON_MASS_H_
@@ -13,7 +15,7 @@ class TQueueOnMass {
  public:
   explicit TQueueOnMass(size_t size) {
     if (size == 0) {
-      throw std::invalid_argument{ "ERROR: Queue size must be > 0" };
+      throw std::invalid_argument{"ERROR: Queue size must be > 0"};
     }
     _data = new T[size];
     _size = size;
@@ -49,19 +51,13 @@ class TQueueOnMass {
 
   ~TQueueOnMass() { delete[] _data; }
 
-  inline bool is_empty() const noexcept {
-    return _count == 0;
-  }
-  inline bool is_full() const noexcept {
-    return _count == _size;
-  }
-  inline size_t size() const noexcept {
-    return _count;
-  }
+  inline bool is_empty() const noexcept { return _count == 0; }
+  inline bool is_full() const noexcept { return _count == _size; }
+  inline size_t size() const noexcept { return _count; }
 
   inline void push(const T& val) {
     if (is_full()) {
-      throw std::out_of_range{ "ERROR: Queue overflow, can't push" };
+      throw std::out_of_range{"ERROR: Queue overflow, can't push"};
     }
     _data[(_head + _count) % _size] = val;
     ++_count;
@@ -70,7 +66,7 @@ class TQueueOnMass {
 
   inline T pop() {
     if (is_empty()) {
-      throw std::out_of_range{ "ERROR: Queue is empty, can't pop" };
+      throw std::out_of_range{"ERROR: Queue is empty, can't pop"};
     }
     T val = _data[_head];
     _head = (_head + 1) % _size;
@@ -80,14 +76,14 @@ class TQueueOnMass {
 
   inline T& front() {
     if (is_empty()) {
-      throw std::out_of_range{ "ERROR: Queue is empty, can't get front" };
+      throw std::out_of_range{"ERROR: Queue is empty, can't get front"};
     }
     return _data[_head];
   }
 
   inline T& back() {
     if (is_empty()) {
-      throw std::out_of_range{ "ERROR: Queue is empty, can't get back" };
+      throw std::out_of_range{"ERROR: Queue is empty, can't get back"};
     }
     return _data[(_head + _count - 1) % _size];
   }

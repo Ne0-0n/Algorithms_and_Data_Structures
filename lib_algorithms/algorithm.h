@@ -1,8 +1,6 @@
-#ifndef LIB_EASY_EXAMPLE_EASY_EXAMPLE_H_
-#define LIB_EASY_EXAMPLE_EASY_EXAMPLE_H_
+// Copyright 2026 Kutyaev Egor
+#include <string>
 
 float division(int a, int b);
 
 bool check_breckets(std::string expression);
-
-#endif  // LIB_EASY_EXAMPLE_EASY_EXAMPLE_H_
