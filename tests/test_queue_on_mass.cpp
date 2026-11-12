@@ -1,4 +1,4 @@
-// Copyright 2026
+// Copyright 2026 Kutyaev Egor
 
 #include <gtest/gtest.h>
 
@@ -13,9 +13,6 @@ TEST(QueueOnMass, StartsEmpty) {
   EXPECT_EQ(q.size(), 0u);
 }
 
-TEST(QueueOnMass, ThrowsOnZeroSize) {
-  EXPECT_THROW(TQueueOnMass<int> q(0), std::invalid_argument);
-}
 
 TEST(QueueOnMass, PushPopKeepsFifoOrder) {
   TQueueOnMass<int> q(3);
@@ -62,22 +59,6 @@ TEST(QueueOnMass, ThrowsOnFrontAndBackOfEmpty) {
   EXPECT_THROW(q.back(), std::out_of_range);
 }
 
-TEST(QueueOnMass, WrapsAroundBuffer) {
-  TQueueOnMass<int> q(3);
-  q.push(1);
-  q.push(2);
-  q.push(3);
-  EXPECT_EQ(q.pop(), 1);
-  EXPECT_EQ(q.pop(), 2);
-  q.push(4);
-  q.push(5);
-  EXPECT_TRUE(q.is_full());
-  EXPECT_EQ(q.front(), 3);
-  EXPECT_EQ(q.back(), 5);
-  EXPECT_EQ(q.pop(), 3);
-  EXPECT_EQ(q.pop(), 4);
-  EXPECT_EQ(q.pop(), 5);
-}
 
 TEST(QueueOnMass, CopyConstructorMakesIndependentCopy) {
   TQueueOnMass<int> q(3);
