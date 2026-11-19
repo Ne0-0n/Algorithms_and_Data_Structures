@@ -19,6 +19,8 @@ add_subdirectory(lib_stack_on_mass)
 
 add_subdirectory(lib_queue_on_mass)
 
+add_subdirectory(lib_double_list)
+
 
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
