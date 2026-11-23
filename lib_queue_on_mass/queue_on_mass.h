@@ -28,7 +28,4 @@ class TQueueOnMass {
   T& back();
 };
 
-// Шаблонные определения лежат в .cpp, поэтому подключаем его в конце заголовка
-#include "queue_on_mass.cpp"
-
 #endif  // LIB_QUEUE_ON_MASS_QUEUE_ON_MASS_H_

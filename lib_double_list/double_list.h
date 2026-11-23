@@ -45,10 +45,6 @@ class DoubleList {
       p_cur++;
       return tmp;
     }
-
-   
-
-
   };
 
   typedef Iterator<T> iterator;

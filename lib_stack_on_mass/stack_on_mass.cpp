@@ -2,7 +2,7 @@
 #ifndef LIB_STACK_ON_MASS_STACK_ON_MASS_CPP_
 #define LIB_STACK_ON_MASS_STACK_ON_MASS_CPP_
 
-#include "stack_on_mas.h"
+#include "../lib_stack_on_mass/stack_on_mas.h"
 
 template <class T>
 TStackOnMass<T>::TStackOnMass(size_t size) {

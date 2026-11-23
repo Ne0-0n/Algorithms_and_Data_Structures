@@ -1,4 +1,6 @@
 // Copyright 2026 Kutyaev Egor
+#ifndef LIB_ALGORITHMS_ALGORITHM_CPP_
+#define LIB_ALGORITHMS_ALGORITHM_CPP_
 #include "../lib_algorithms/algorithm.h"
 
 #include <stdexcept>
@@ -35,3 +37,5 @@ bool check_breckets(std::string expression) {
   }
   return stack.is_empty();
 }
+
+#endif  // LIB_ALGORITHMS_ALGORITHM_CPP_

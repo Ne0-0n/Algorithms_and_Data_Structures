@@ -24,7 +24,4 @@ class TStackOnMass {
   T top();
 };
 
-
-#include "stack_on_mass.cpp"
-
 #endif  // LIB_STACK_ON_MASS_STACK_ON_MAS_H_
