@@ -12,7 +12,7 @@ class TStackOnMass {
   int _top;
 
  public:
-  TStackOnMass(size_t size);
+  explicit TStackOnMass(size_t size);
   TStackOnMass(const TStackOnMass& other);
   TStackOnMass& operator=(const TStackOnMass& other);
   ~TStackOnMass();

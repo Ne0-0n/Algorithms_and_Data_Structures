@@ -24,7 +24,7 @@ class DoubleList {
     Type* p_cur;
 
    public:
-    Iterator(Type* ptr = nullptr) { p_cur = ptr; }
+    explicit Iterator(Type* ptr = nullptr) { p_cur = ptr; }
     Iterator(const Iterator& other) { p_cur = other.p_cur; }
 
     Type& operator*() const { return *p_cur; }
