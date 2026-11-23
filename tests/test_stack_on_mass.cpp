@@ -1,6 +1,7 @@
 // Copyright 2026 Kutyaev Egor
 #include <gtest/gtest.h>
 
+#include <algorithm>
 #include <stdexcept>
 #include <string>
 
@@ -119,9 +120,13 @@ TEST(StackOnMass, WorksWithStructType) {
   EXPECT_TRUE(s.pop() == (Point{1, 2}));
 }
 
-// Тесты ниже отключены: они описывают правильное поведение, которого у стека
-// пока нет (pop/top проверяют is_full вместо is_empty, конструктор копирования
-// не копирует элементы). Чтобы включить, уберите префикс DISABLED_.
+
+
+
+
+
+
+
 TEST(StackOnMass, DISABLED_ThrowsOnPopFromEmpty) {
   TStackOnMass<int> s(2);
   EXPECT_THROW(s.pop(), std::out_of_range);
