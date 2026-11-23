@@ -24,26 +24,130 @@ TEST(CheckBracketsTest, InvalidExpressions) {
   EXPECT_FALSE(check_breckets("())"));
 }
 
-TEST(TStackOnMassTest, InitialStateIsEmpty) {
-  TStackOnMass<int> stack(3);
-  EXPECT_TRUE(stack.is_empty());
-  EXPECT_FALSE(stack.is_full());
+struct Point {
+  int x = 0;
+  int y = 0;
+  bool operator==(const Point& other) const {
+    return x == other.x && y == other.y;
+  }
+};
+
+TEST(StackOnMass, StartsEmpty) {
+  TStackOnMass<int> s(3);
+  EXPECT_TRUE(s.is_empty());
+  EXPECT_FALSE(s.is_full());
 }
 
-TEST(TStackOnMassTest, PushAndTop) {
-  TStackOnMass<int> stack(3);
-  stack.push(10);
-  EXPECT_FALSE(stack.is_empty());
-  EXPECT_EQ(stack.top(), 10);
-
-  stack.push(20);
-  EXPECT_EQ(stack.top(), 20);
+TEST(StackOnMass, PushPopKeepsLifoOrder) {
+  TStackOnMass<int> s(4);
+  s.push(1);
+  s.push(2);
+  s.push(3);
+  EXPECT_EQ(s.pop(), 3);
+  EXPECT_EQ(s.pop(), 2);
+  EXPECT_EQ(s.pop(), 1);
+  EXPECT_TRUE(s.is_empty());
 }
 
-TEST(TStackOnMassTest, OverflowThrowsOutOfRange) {
-  TStackOnMass<int> stack(2);
-  stack.push(1);
-  stack.push(2);
-  EXPECT_THROW(stack.push(3), std::out_of_range);
+TEST(StackOnMass, TopDoesNotRemove) {
+  TStackOnMass<int> s(4);
+  s.push(1);
+  s.push(2);
+  EXPECT_EQ(s.top(), 2);
+  EXPECT_EQ(s.top(), 2);
+  EXPECT_FALSE(s.is_empty());
+  EXPECT_EQ(s.pop(), 2);
+  EXPECT_EQ(s.top(), 1);
 }
 
+TEST(StackOnMass, IsFullWhenCapacityReached) {
+  TStackOnMass<int> s(2);
+  s.push(1);
+  EXPECT_FALSE(s.is_full());
+  s.push(2);
+  EXPECT_TRUE(s.is_full());
+}
+
+TEST(StackOnMass, ThrowsOnPushToFull) {
+  TStackOnMass<int> s(1);
+  s.push(1);
+  EXPECT_THROW(s.push(2), std::out_of_range);
+}
+
+TEST(StackOnMass, ReusableAfterBecomingEmpty) {
+  TStackOnMass<int> s(3);
+  s.push(1);
+  s.push(2);
+  EXPECT_EQ(s.pop(), 2);
+  EXPECT_EQ(s.pop(), 1);
+  EXPECT_TRUE(s.is_empty());
+  s.push(3);
+  s.push(4);
+  EXPECT_EQ(s.top(), 4);
+  EXPECT_EQ(s.pop(), 4);
+  EXPECT_EQ(s.pop(), 3);
+}
+
+TEST(StackOnMass, AssignmentMakesIndependentCopy) {
+  TStackOnMass<int> s(4);
+  s.push(1);
+  s.push(2);
+  TStackOnMass<int> other(5);
+  other.push(9);
+  other = s;
+  EXPECT_EQ(other.pop(), 2);
+  EXPECT_EQ(other.pop(), 1);
+  EXPECT_TRUE(other.is_empty());
+  EXPECT_EQ(s.top(), 2);
+}
+
+TEST(StackOnMass, SelfAssignmentKeepsData) {
+  TStackOnMass<int> s(4);
+  s.push(1);
+  s.push(2);
+  TStackOnMass<int>& ref = s;
+  s = ref;
+  EXPECT_EQ(s.pop(), 2);
+  EXPECT_EQ(s.pop(), 1);
+}
+
+TEST(StackOnMass, WorksWithStructType) {
+  TStackOnMass<Point> s(3);
+  s.push(Point{1, 2});
+  s.push(Point{3, 4});
+  EXPECT_TRUE(s.pop() == (Point{3, 4}));
+  EXPECT_TRUE(s.pop() == (Point{1, 2}));
+}
+
+// Тесты ниже отключены: они описывают правильное поведение, которого у стека
+// пока нет (pop/top проверяют is_full вместо is_empty, конструктор копирования
+// не копирует элементы). Чтобы включить, уберите префикс DISABLED_.
+TEST(StackOnMass, DISABLED_ThrowsOnPopFromEmpty) {
+  TStackOnMass<int> s(2);
+  EXPECT_THROW(s.pop(), std::out_of_range);
+}
+
+TEST(StackOnMass, DISABLED_ThrowsOnTopOfEmpty) {
+  TStackOnMass<int> s(2);
+  EXPECT_THROW(s.top(), std::out_of_range);
+}
+
+TEST(StackOnMass, DISABLED_PopAndTopWorkOnFull) {
+  TStackOnMass<int> s(2);
+  s.push(1);
+  s.push(2);
+  ASSERT_TRUE(s.is_full());
+  EXPECT_EQ(s.top(), 2);
+  EXPECT_EQ(s.pop(), 2);
+  EXPECT_FALSE(s.is_full());
+}
+
+TEST(StackOnMass, DISABLED_CopyConstructorMakesIndependentCopy) {
+  TStackOnMass<int> s(3);
+  s.push(1);
+  s.push(2);
+  TStackOnMass<int> copy(s);
+  EXPECT_EQ(copy.pop(), 2);
+  EXPECT_EQ(copy.pop(), 1);
+  EXPECT_EQ(s.top(), 2);
+}

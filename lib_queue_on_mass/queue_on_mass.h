@@ -28,4 +28,6 @@ class TQueueOnMass {
   T& back();
 };
 
+#include "../lib_queue_on_mass/queue_on_mass.cpp"
+
 #endif  // LIB_QUEUE_ON_MASS_QUEUE_ON_MASS_H_
