@@ -16,14 +16,10 @@ class TStackOnMass {
     _size = size;
     _top = -1;
   }
-  TStackOnMass(const TStackOnMass& other) {
-    _data = new T[other._size];
-    _size = other._size;
-    _top = -1;
-    if (_top != -1) {
-      for (size_t i = 0; i <= _top; ++i) {
-        _data[i] - other._data[i];
-      }
+  TStackOnMass(const TStackOnMass& other)
+      : _data(new T[other._size]), _size(other._size), _top(other._top) {
+    for (int i = 0; i <= _top; ++i) {
+      _data[i] = other._data[i];
     }
   }
 
@@ -53,16 +49,16 @@ class TStackOnMass {
     _data[++_top] = val;
   }
 
-  inline T pop() {
-    if (is_full()) {
-      throw std::out_of_range{"ERROR: Stack overflow, can't push"};
+inline T pop() {
+    if (is_empty()) {
+      throw std::out_of_range{"ERROR: Stack is empty, can't pop"};
     }
     return _data[_top--];
   }
 
-  inline T top() {
-    if (is_full()) {
-      throw std::out_of_range{"ERROR: Stack overflow, can't push"};
+inline T top() const {
+    if (is_empty()) {
+      throw std::out_of_range{"ERROR: Stack is empty, can't top"};
     }
     return _data[_top];
   }

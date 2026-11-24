@@ -120,24 +120,17 @@ TEST(StackOnMass, WorksWithStructType) {
   EXPECT_TRUE(s.pop() == (Point{1, 2}));
 }
 
-
-
-
-
-
-
-
-TEST(StackOnMass, DISABLED_ThrowsOnPopFromEmpty) {
+TEST(StackOnMass, ThrowsOnPopFromEmpty) {
   TStackOnMass<int> s(2);
   EXPECT_THROW(s.pop(), std::out_of_range);
 }
 
-TEST(StackOnMass, DISABLED_ThrowsOnTopOfEmpty) {
+TEST(StackOnMass, ThrowsOnTopOfEmpty) {
   TStackOnMass<int> s(2);
   EXPECT_THROW(s.top(), std::out_of_range);
 }
 
-TEST(StackOnMass, DISABLED_PopAndTopWorkOnFull) {
+TEST(StackOnMass, PopAndTopWorkOnFull) {
   TStackOnMass<int> s(2);
   s.push(1);
   s.push(2);
@@ -147,7 +140,7 @@ TEST(StackOnMass, DISABLED_PopAndTopWorkOnFull) {
   EXPECT_FALSE(s.is_full());
 }
 
-TEST(StackOnMass, DISABLED_CopyConstructorMakesIndependentCopy) {
+TEST(StackOnMass, CopyConstructorMakesIndependentCopy) {
   TStackOnMass<int> s(3);
   s.push(1);
   s.push(2);
