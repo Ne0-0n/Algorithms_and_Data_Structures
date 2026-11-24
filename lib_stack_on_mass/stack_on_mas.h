@@ -11,7 +11,7 @@ class TStackOnMass {
   int _top;
 
  public:
-  TStackOnMass(size_t size) {
+  explicit TStackOnMass(size_t size) {
     _data = new T[size];
     _size = size;
     _top = -1;
